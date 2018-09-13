@@ -10,53 +10,61 @@ import java.util.Scanner;
 public class Hangman {
     public static void main(String[] args) {
         //char[] phrase = getPhrase().toCharArray();
-        char[] phrase = "look a phrase".toCharArray();
+        char[] phrase = "LOOK A PHRASE".toCharArray();
         boolean[] letterFound = new boolean[phrase.length];
         boolean solved = false;
         int guesses = 4;
 
-        displayWord(phrase, letterFound);
-
-        do {
+        while (!solved) {
             try {
+                displayWord(phrase, letterFound);
                 System.out.print("\nEnter either 1 for guessing or 2 for hint: ");
                 Scanner sc = new Scanner(System.in);
 
                 int choice = sc.nextInt();
 
                 if (choice == 1) {
-                    solved = makeGuess(phrase, letterFound, guesses);
+                    makeGuess(phrase, letterFound, guesses);
                 } else if (choice == 2) {
                     getHint();
                 } else {
                     System.out.println("Incorrect input, only valid entries are 1 or 2.");
                 }
+            } catch (InputMismatchException e) {
+                System.out.println("Invalid input type.");
             }
-            catch (InputMismatchException e) { System.out.println("Invalid input type."); }
-        } while(!solved);
-
+        }
     }
 
-    /**
-     * Asks the user for a phrase to use for the game.
-     * @return
-     */
-    private static String getPhrase() {
+
+    public static String getPhrase() {
         Scanner sc = new Scanner(System.in);
         System.out.print("Enter a word: ");
         return sc.nextLine().toUpperCase().trim();
     }
 
-    public static boolean makeGuess(char[] word, boolean[] display, int guesses) {
-        //TODO: create method that proceeds with making a guess
+
+    public static void makeGuess(char[] word, boolean[] display, int guesses) {
+        //TODO: finish makeGuess method, need to work on loop so it doesnt repeat
+        //commented line below does not work
         Scanner sc = new Scanner(System.in);
-        int choice = sc.nextInt();
-        if(choice == 1)
-            return true;
-        else if (choice == 2)
-            return false;
-        else
-            return false;
+        try {
+            System.out.print("\nEnter your guess: ");
+            char guess = sc.next().toUpperCase().charAt(0);
+            int index = 0;
+            for (char item : word) {
+                if (guess == item) {
+                    display[index] = true;
+                    System.out.printf("\nThat's right! %c is in the word.", guess);
+                }
+//                else {
+//                    System.out.printf("\nSorry, %c isn't in the word.", guess);
+//                }
+                index++;
+            }
+        } catch (InputMismatchException e) {
+            System.out.println("Invalid input type.");
+        }
     }
 
     public static void getHint() {
