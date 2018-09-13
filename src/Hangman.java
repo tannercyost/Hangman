@@ -1,6 +1,9 @@
 /**
  * Hangman.java
  * Abstract: asks user for a word to be used for the game, then plays the game of hangman.
+ *           4 incorrect guesses and the game is over
+ *           to win, correctly guess each character of the phrase entered.
+ *
  * Tanner Yost
  * 9/10/2018
  */
@@ -77,8 +80,6 @@ public class Hangman {
      * @return
      */
     private static boolean makeGuess(char[] word, boolean[] display, ArrayList<Character> madeGuesses) {
-        //TODO: finish makeGuess method, need to work on loop so it doesnt repeat
-        //commented line below does not work
         Scanner sc = new Scanner(System.in);
         try {
             System.out.print("\nEnter your guess: ");
@@ -125,7 +126,6 @@ public class Hangman {
      * @param madeGuesses, list of hinted/guessed characters
      */
     private static void getHint(char[] word, boolean[] display, int guesses, ArrayList<Character> madeGuesses) {
-        //TODO: create method that generates a hint for the user
         int index = 0;
         for (char item : word) {
             if (!display[index] && item!=' ') {
